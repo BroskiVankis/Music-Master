@@ -1,9 +1,10 @@
 import React, { Component } from "react";
+import Artist from "./Artist";
 
 const API_ADDRESS = 'https://spotify-api-wrapper.appspot.com';
 
 class App extends Component { 
-  sate = { artistQuery: '', artist: null, tracks: [] };
+  state = { artistQuery: '', artist: null, tracks: [] };
 
   updateArtistQuery = event => {
     this.setState({ artistQuery: event.target.value });
@@ -45,6 +46,7 @@ class App extends Component {
         placeholder='Search for an Artist'
       />
       <button onClick={this.searchArtist}>Search</button>
+      <Artist artist={this.state.artist}/>
     </div>
     );
   }

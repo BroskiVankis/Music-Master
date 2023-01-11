@@ -2911,7 +2911,7 @@ var _indexCss = require("./index.css");
 const root = (0, _reactDomDefault.default).createRoot(document.getElementById("root"));
 root.render(/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _appDefault.default), {}, void 0, false, {
     fileName: "src/index.js",
-    lineNumber: 8,
+    lineNumber: 6,
     columnNumber: 13
 }, undefined));
 
@@ -2920,7 +2920,7 @@ root.render(/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _appDefault.default), {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-dom":"j6uA9","./components/App":"ey9du","./index.css":"irmnC","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"iTorj":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./components/App":"ey9du","./index.css":"irmnC","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","react-dom":"j6uA9"}],"iTorj":[function(require,module,exports) {
 "use strict";
 module.exports = require("./cjs/react-jsx-dev-runtime.development.js");
 
@@ -5621,7 +5621,349 @@ module.exports = require("./cjs/react.development.js");
     /* global __REACT_DEVTOOLS_GLOBAL_HOOK__ */ if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop === "function") __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(new Error());
 })();
 
-},{}],"j6uA9":[function(require,module,exports) {
+},{}],"ey9du":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$9bc7 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$9bc7.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _artist = require("./Artist");
+var _artistDefault = parcelHelpers.interopDefault(_artist);
+function _defineProperty(obj, key, value) {
+    key = _toPropertyKey(key);
+    if (key in obj) Object.defineProperty(obj, key, {
+        value: value,
+        enumerable: true,
+        configurable: true,
+        writable: true
+    });
+    else obj[key] = value;
+    return obj;
+}
+function _toPropertyKey(arg) {
+    var key = _toPrimitive(arg, "string");
+    return typeof key === "symbol" ? key : String(key);
+}
+function _toPrimitive(input, hint) {
+    if (typeof input !== "object" || input === null) return input;
+    var prim = input[Symbol.toPrimitive];
+    if (prim !== undefined) {
+        var res = prim.call(input, hint || "default");
+        if (typeof res !== "object") return res;
+        throw new TypeError("@@toPrimitive must return a primitive value.");
+    }
+    return (hint === "string" ? String : Number)(input);
+}
+const API_ADDRESS = "https://spotify-api-wrapper.appspot.com";
+class App extends (0, _react.Component) {
+    constructor(...args){
+        super(...args);
+        _defineProperty(this, "state", {
+            artistQuery: "",
+            artist: null,
+            tracks: []
+        });
+        _defineProperty(this, "updateArtistQuery", (event)=>{
+            this.setState({
+                artistQuery: event.target.value
+            });
+        });
+        _defineProperty(this, "handleKeyPress", (event)=>{
+            if (event.key === "Enter") this.searchArtist();
+        });
+        _defineProperty(this, "searchArtist", ()=>{
+            fetch(`${API_ADDRESS}/artist/${this.state.artistQuery}`).then((response)=>response.json()).then((json)=>{
+                if (json.artists.total > 0) {
+                    const artist = json.artists.items[0];
+                    this.setState({
+                        artist
+                    });
+                    fetch(`${API_ADDRESS}/artist/${artist.id}/top-tracks`).then((response)=>response.json()).then((json)=>this.setState({
+                            tracks: json.tracks
+                        })).catch((error)=>alert(error.message));
+                }
+            }).catch((error)=>alert(error.message));
+        });
+    }
+    render() {
+        console.log("this.state", this.state);
+        return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+            children: [
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
+                    children: "Music Master"
+                }, void 0, false, {
+                    fileName: "src/components/App.js",
+                    lineNumber: 42,
+                    columnNumber: 7
+                }, this),
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
+                    onChange: this.updateArtistQuery,
+                    onKeyPress: this.handleKeyPress,
+                    placeholder: "Search for an Artist"
+                }, void 0, false, {
+                    fileName: "src/components/App.js",
+                    lineNumber: 43,
+                    columnNumber: 7
+                }, this),
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
+                    onClick: this.searchArtist,
+                    children: "Search"
+                }, void 0, false, {
+                    fileName: "src/components/App.js",
+                    lineNumber: 44,
+                    columnNumber: 7
+                }, this),
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _artistDefault.default), {
+                    artist: this.state.artist
+                }, void 0, false, {
+                    fileName: "src/components/App.js",
+                    lineNumber: 45,
+                    columnNumber: 7
+                }, this)
+            ]
+        }, void 0, true, {
+            fileName: "src/components/App.js",
+            lineNumber: 41,
+            columnNumber: 12
+        }, this);
+    }
+}
+exports.default = App;
+
+  $parcel$ReactRefreshHelpers$9bc7.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./Artist":"2Dz6G","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"2Dz6G":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$6250 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$6250.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+const Artist = ({ artist  })=>{
+    if (!artist) return null;
+    const { images , name , followers , genres  } = artist;
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
+                children: name
+            }, void 0, false, {
+                fileName: "src/components/Artist.js",
+                lineNumber: 13,
+                columnNumber: 13
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                children: [
+                    followers.total,
+                    " followers"
+                ]
+            }, void 0, true, {
+                fileName: "src/components/Artist.js",
+                lineNumber: 14,
+                columnNumber: 13
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                children: genres.join(",")
+            }, void 0, false, {
+                fileName: "src/components/Artist.js",
+                lineNumber: 15,
+                columnNumber: 13
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
+                src: images[0] && images[0].url,
+                alt: "artist-profile",
+                style: {
+                    width: 200,
+                    heigh: 200,
+                    borderRadius: 100,
+                    objectFit: "cover"
+                }
+            }, void 0, false, {
+                fileName: "src/components/Artist.js",
+                lineNumber: 16,
+                columnNumber: 13
+            }, undefined)
+        ]
+    }, void 0, true, {
+        fileName: "src/components/Artist.js",
+        lineNumber: 12,
+        columnNumber: 10
+    }, undefined);
+};
+_c = Artist;
+exports.default = Artist;
+var _c;
+$RefreshReg$(_c, "Artist");
+
+  $parcel$ReactRefreshHelpers$6250.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"gkKU3":[function(require,module,exports) {
+exports.interopDefault = function(a) {
+    return a && a.__esModule ? a : {
+        default: a
+    };
+};
+exports.defineInteropFlag = function(a) {
+    Object.defineProperty(a, "__esModule", {
+        value: true
+    });
+};
+exports.exportAll = function(source, dest) {
+    Object.keys(source).forEach(function(key) {
+        if (key === "default" || key === "__esModule" || dest.hasOwnProperty(key)) return;
+        Object.defineProperty(dest, key, {
+            enumerable: true,
+            get: function() {
+                return source[key];
+            }
+        });
+    });
+    return dest;
+};
+exports.export = function(dest, destName, get) {
+    Object.defineProperty(dest, destName, {
+        enumerable: true,
+        get: get
+    });
+};
+
+},{}],"km3Ru":[function(require,module,exports) {
+"use strict";
+var Refresh = require("react-refresh/runtime");
+function debounce(func, delay) {
+    var args;
+    var timeout = undefined;
+    return function(args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(function() {
+            timeout = undefined;
+            func.call(null, args);
+        }, delay);
+    };
+}
+var enqueueUpdate = debounce(function() {
+    Refresh.performReactRefresh();
+}, 30); // Everthing below is either adapted or copied from
+// https://github.com/facebook/metro/blob/61de16bd1edd7e738dd0311c89555a644023ab2d/packages/metro/src/lib/polyfills/require.js
+// MIT License - Copyright (c) Facebook, Inc. and its affiliates.
+module.exports.prelude = function(module1) {
+    window.$RefreshReg$ = function(type, id) {
+        Refresh.register(type, module1.id + " " + id);
+    };
+    window.$RefreshSig$ = Refresh.createSignatureFunctionForTransform;
+};
+module.exports.postlude = function(module1) {
+    if (isReactRefreshBoundary(module1.exports)) {
+        registerExportsForReactRefresh(module1);
+        if (module1.hot) {
+            module1.hot.dispose(function(data) {
+                if (Refresh.hasUnrecoverableErrors()) window.location.reload();
+                data.prevExports = module1.exports;
+            });
+            module1.hot.accept(function(getParents) {
+                var prevExports = module1.hot.data.prevExports;
+                var nextExports = module1.exports; // Since we just executed the code for it, it's possible
+                // that the new exports make it ineligible for being a boundary.
+                var isNoLongerABoundary = !isReactRefreshBoundary(nextExports); // It can also become ineligible if its exports are incompatible
+                // with the previous exports.
+                // For example, if you add/remove/change exports, we'll want
+                // to re-execute the importing modules, and force those components
+                // to re-render. Similarly, if you convert a class component
+                // to a function, we want to invalidate the boundary.
+                var didInvalidate = shouldInvalidateReactRefreshBoundary(prevExports, nextExports);
+                if (isNoLongerABoundary || didInvalidate) {
+                    // We'll be conservative. The only case in which we won't do a full
+                    // reload is if all parent modules are also refresh boundaries.
+                    // In that case we'll add them to the current queue.
+                    var parents = getParents();
+                    if (parents.length === 0) {
+                        // Looks like we bubbled to the root. Can't recover from that.
+                        window.location.reload();
+                        return;
+                    }
+                    return parents;
+                }
+                enqueueUpdate();
+            });
+        }
+    }
+};
+function isReactRefreshBoundary(exports) {
+    if (Refresh.isLikelyComponentType(exports)) return true;
+    if (exports == null || typeof exports !== "object") // Exit if we can't iterate over exports.
+    return false;
+    var hasExports = false;
+    var areAllExportsComponents = true;
+    let isESM = "__esModule" in exports;
+    for(var key in exports){
+        hasExports = true;
+        if (key === "__esModule") continue;
+        var desc = Object.getOwnPropertyDescriptor(exports, key);
+        if (desc && desc.get && !isESM) // Don't invoke getters for CJS as they may have side effects.
+        return false;
+        var exportValue = exports[key];
+        if (!Refresh.isLikelyComponentType(exportValue)) areAllExportsComponents = false;
+    }
+    return hasExports && areAllExportsComponents;
+}
+function shouldInvalidateReactRefreshBoundary(prevExports, nextExports) {
+    var prevSignature = getRefreshBoundarySignature(prevExports);
+    var nextSignature = getRefreshBoundarySignature(nextExports);
+    if (prevSignature.length !== nextSignature.length) return true;
+    for(var i = 0; i < nextSignature.length; i++){
+        if (prevSignature[i] !== nextSignature[i]) return true;
+    }
+    return false;
+} // When this signature changes, it's unsafe to stop at this refresh boundary.
+function getRefreshBoundarySignature(exports) {
+    var signature = [];
+    signature.push(Refresh.getFamilyByType(exports));
+    if (exports == null || typeof exports !== "object") // Exit if we can't iterate over exports.
+    // (This is important for legacy environments.)
+    return signature;
+    let isESM = "__esModule" in exports;
+    for(var key in exports){
+        if (key === "__esModule") continue;
+        var desc = Object.getOwnPropertyDescriptor(exports, key);
+        if (desc && desc.get && !isESM) continue;
+        var exportValue = exports[key];
+        signature.push(key);
+        signature.push(Refresh.getFamilyByType(exportValue));
+    }
+    return signature;
+}
+function registerExportsForReactRefresh(module1) {
+    var exports = module1.exports, id = module1.id;
+    Refresh.register(exports, id + " %exports%");
+    if (exports == null || typeof exports !== "object") // Exit if we can't iterate over exports.
+    // (This is important for legacy environments.)
+    return;
+    let isESM = "__esModule" in exports;
+    for(var key in exports){
+        var desc = Object.getOwnPropertyDescriptor(exports, key);
+        if (desc && desc.get && !isESM) continue;
+        var exportValue = exports[key];
+        Refresh.register(exportValue, id + " %exports% " + key);
+    }
+}
+
+},{"react-refresh/runtime":"786KC"}],"irmnC":[function() {},{}],"j6uA9":[function(require,module,exports) {
 "use strict";
 function checkDCE() {
     /* global __REACT_DEVTOOLS_GLOBAL_HOOK__ */ if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ === "undefined" || typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE !== "function") return;
@@ -27052,239 +27394,6 @@ module.exports = require("./cjs/scheduler.development.js");
     /* global __REACT_DEVTOOLS_GLOBAL_HOOK__ */ if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop === "function") __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(new Error());
 })();
 
-},{}],"ey9du":[function(require,module,exports) {
-var $parcel$ReactRefreshHelpers$9bc7 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
-var prevRefreshReg = window.$RefreshReg$;
-var prevRefreshSig = window.$RefreshSig$;
-$parcel$ReactRefreshHelpers$9bc7.prelude(module);
-
-try {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _jsxDevRuntime = require("react/jsx-dev-runtime");
-var _react = require("react");
-var _reactDefault = parcelHelpers.interopDefault(_react);
-const API_ADDRESS = "https://spotify-api-wrapper.appspot.com";
-class App extends (0, _react.Component) {
-    sate = {
-        artistQuery: "",
-        artist: null,
-        tracks: []
-    };
-    updateArtistQuery = (event)=>{
-        this.setState({
-            artistQuery: event.target.value
-        });
-    };
-    handleKeyPress = (event)=>{
-        if (event.key === "Enter") this.searchArtist();
-    };
-    searchArtist = ()=>{
-        fetch(`${API_ADDRESS}/artist/${this.state.artistQuery}`).then((response)=>response.json()).then((json)=>{
-            if (json.artists.total > 0) {
-                const artist = json.artists.items[0];
-                this.setState({
-                    artist
-                });
-                fetch(`${API_ADDRESS}/artist/${artist.id}/top-tracks`).then((response)=>response.json()).then((json)=>this.setState({
-                        tracks: json.tracks
-                    })).catch((error)=>alert(error.message));
-            }
-        }).catch((error)=>alert(error.message));
-    };
-    render() {
-        console.log("this.state", this.state);
-        return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-            children: [
-                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
-                    children: "Music Master"
-                }, void 0, false, {
-                    fileName: "src/components/App.js",
-                    lineNumber: 41,
-                    columnNumber: 7
-                }, this),
-                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
-                    onChange: this.updateArtistQuery,
-                    onKeyPress: this.handleKeyPress,
-                    placeholder: "Search for an Artist"
-                }, void 0, false, {
-                    fileName: "src/components/App.js",
-                    lineNumber: 42,
-                    columnNumber: 7
-                }, this),
-                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
-                    onClick: this.searchArtist,
-                    children: "Search"
-                }, void 0, false, {
-                    fileName: "src/components/App.js",
-                    lineNumber: 47,
-                    columnNumber: 7
-                }, this)
-            ]
-        }, void 0, true, {
-            fileName: "src/components/App.js",
-            lineNumber: 40,
-            columnNumber: 5
-        }, this);
-    }
-}
-exports.default = App;
-
-  $parcel$ReactRefreshHelpers$9bc7.postlude(module);
-} finally {
-  window.$RefreshReg$ = prevRefreshReg;
-  window.$RefreshSig$ = prevRefreshSig;
-}
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"gkKU3":[function(require,module,exports) {
-exports.interopDefault = function(a) {
-    return a && a.__esModule ? a : {
-        default: a
-    };
-};
-exports.defineInteropFlag = function(a) {
-    Object.defineProperty(a, "__esModule", {
-        value: true
-    });
-};
-exports.exportAll = function(source, dest) {
-    Object.keys(source).forEach(function(key) {
-        if (key === "default" || key === "__esModule" || dest.hasOwnProperty(key)) return;
-        Object.defineProperty(dest, key, {
-            enumerable: true,
-            get: function() {
-                return source[key];
-            }
-        });
-    });
-    return dest;
-};
-exports.export = function(dest, destName, get) {
-    Object.defineProperty(dest, destName, {
-        enumerable: true,
-        get: get
-    });
-};
-
-},{}],"km3Ru":[function(require,module,exports) {
-"use strict";
-var Refresh = require("react-refresh/runtime");
-function debounce(func, delay) {
-    var args;
-    var timeout = undefined;
-    return function(args) {
-        clearTimeout(timeout);
-        timeout = setTimeout(function() {
-            timeout = undefined;
-            func.call(null, args);
-        }, delay);
-    };
-}
-var enqueueUpdate = debounce(function() {
-    Refresh.performReactRefresh();
-}, 30); // Everthing below is either adapted or copied from
-// https://github.com/facebook/metro/blob/61de16bd1edd7e738dd0311c89555a644023ab2d/packages/metro/src/lib/polyfills/require.js
-// MIT License - Copyright (c) Facebook, Inc. and its affiliates.
-module.exports.prelude = function(module1) {
-    window.$RefreshReg$ = function(type, id) {
-        Refresh.register(type, module1.id + " " + id);
-    };
-    window.$RefreshSig$ = Refresh.createSignatureFunctionForTransform;
-};
-module.exports.postlude = function(module1) {
-    if (isReactRefreshBoundary(module1.exports)) {
-        registerExportsForReactRefresh(module1);
-        if (module1.hot) {
-            module1.hot.dispose(function(data) {
-                if (Refresh.hasUnrecoverableErrors()) window.location.reload();
-                data.prevExports = module1.exports;
-            });
-            module1.hot.accept(function(getParents) {
-                var prevExports = module1.hot.data.prevExports;
-                var nextExports = module1.exports; // Since we just executed the code for it, it's possible
-                // that the new exports make it ineligible for being a boundary.
-                var isNoLongerABoundary = !isReactRefreshBoundary(nextExports); // It can also become ineligible if its exports are incompatible
-                // with the previous exports.
-                // For example, if you add/remove/change exports, we'll want
-                // to re-execute the importing modules, and force those components
-                // to re-render. Similarly, if you convert a class component
-                // to a function, we want to invalidate the boundary.
-                var didInvalidate = shouldInvalidateReactRefreshBoundary(prevExports, nextExports);
-                if (isNoLongerABoundary || didInvalidate) {
-                    // We'll be conservative. The only case in which we won't do a full
-                    // reload is if all parent modules are also refresh boundaries.
-                    // In that case we'll add them to the current queue.
-                    var parents = getParents();
-                    if (parents.length === 0) {
-                        // Looks like we bubbled to the root. Can't recover from that.
-                        window.location.reload();
-                        return;
-                    }
-                    return parents;
-                }
-                enqueueUpdate();
-            });
-        }
-    }
-};
-function isReactRefreshBoundary(exports) {
-    if (Refresh.isLikelyComponentType(exports)) return true;
-    if (exports == null || typeof exports !== "object") // Exit if we can't iterate over exports.
-    return false;
-    var hasExports = false;
-    var areAllExportsComponents = true;
-    let isESM = "__esModule" in exports;
-    for(var key in exports){
-        hasExports = true;
-        if (key === "__esModule") continue;
-        var desc = Object.getOwnPropertyDescriptor(exports, key);
-        if (desc && desc.get && !isESM) // Don't invoke getters for CJS as they may have side effects.
-        return false;
-        var exportValue = exports[key];
-        if (!Refresh.isLikelyComponentType(exportValue)) areAllExportsComponents = false;
-    }
-    return hasExports && areAllExportsComponents;
-}
-function shouldInvalidateReactRefreshBoundary(prevExports, nextExports) {
-    var prevSignature = getRefreshBoundarySignature(prevExports);
-    var nextSignature = getRefreshBoundarySignature(nextExports);
-    if (prevSignature.length !== nextSignature.length) return true;
-    for(var i = 0; i < nextSignature.length; i++){
-        if (prevSignature[i] !== nextSignature[i]) return true;
-    }
-    return false;
-} // When this signature changes, it's unsafe to stop at this refresh boundary.
-function getRefreshBoundarySignature(exports) {
-    var signature = [];
-    signature.push(Refresh.getFamilyByType(exports));
-    if (exports == null || typeof exports !== "object") // Exit if we can't iterate over exports.
-    // (This is important for legacy environments.)
-    return signature;
-    let isESM = "__esModule" in exports;
-    for(var key in exports){
-        if (key === "__esModule") continue;
-        var desc = Object.getOwnPropertyDescriptor(exports, key);
-        if (desc && desc.get && !isESM) continue;
-        var exportValue = exports[key];
-        signature.push(key);
-        signature.push(Refresh.getFamilyByType(exportValue));
-    }
-    return signature;
-}
-function registerExportsForReactRefresh(module1) {
-    var exports = module1.exports, id = module1.id;
-    Refresh.register(exports, id + " %exports%");
-    if (exports == null || typeof exports !== "object") // Exit if we can't iterate over exports.
-    // (This is important for legacy environments.)
-    return;
-    let isESM = "__esModule" in exports;
-    for(var key in exports){
-        var desc = Object.getOwnPropertyDescriptor(exports, key);
-        if (desc && desc.get && !isESM) continue;
-        var exportValue = exports[key];
-        Refresh.register(exportValue, id + " %exports% " + key);
-    }
-}
-
-},{"react-refresh/runtime":"786KC"}],"irmnC":[function() {},{}]},["1xC6H","ShInH","8lqZg"], "8lqZg", "parcelRequire7f5c")
+},{}]},["1xC6H","ShInH","8lqZg"], "8lqZg", "parcelRequire7f5c")
 
 //# sourceMappingURL=index.975ef6c8.js.map
